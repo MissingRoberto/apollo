@@ -1,6 +1,6 @@
-# Samples
+# Demos
 
-## Prerequisites
+### Prerequisites
 
 * Kubernetes, Istio and Knative already deployed.
 * Install buildpack template:
@@ -31,67 +31,88 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
     - name: basic-user-pass
     - name: registry
     ```
-## kubectl
 
-### Deploying from image
+## Demo 1: kubectl
 
+1. Deploying from image
+    ```
+    bat samples/simple-app.yml
+    kubectl apply -f samples/simple-app.yml
+    ```
+1. Deploying from source code
+    ```
+    bat samples/simple-app-from-source.yml
+    kubectl apply -f samples/simple-app-from-source.yml
+    ```
+1. Deploy same application and see how revisions are created with:
+    ```
+    kubectl get revisions
+    ```
+
+## Demo 2: Autoscaling test
+
+1. Curl an application scaled-to-zero and see how it creates a container in a matter of seconds:
+    ```
+    curl ghost-app.default.knative.mybluemix-test.net
+    ```
+2. You can generate some load againts the endpoint and see how the application scales:
 ```
-kubectl apply -f samples/simple-app.yml
+go get github.com/tscolari/bender
+bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurrency 100 --interval 100ms --keep-running
 ```
 
-### Deploying from source code
+## Demo 3: Knife
 
-```
-kubectl apply -f samples/simple-app-from-source.yml
-```
-
-## Knife
-
-Knife generates Knative configution: 
+Knife is a CLI which generates Knative configution and can be piped to `kubectl`:
 
 ```
 knife generate-service simple-app jszroberto/helloworld 
 ```
 
-### Deploying from image
+1. Deploying from image
+    ```
+    knife generate-service simple-app jszroberto/helloworld | kubectl apply -f -
+    ```
+2. Deploying from source code
+    ```
+    knife generate-service simple-app-from-source jszroberto/simple-app-from-source \
+        -s build-bot \
+        -u https://github.com/jszroberto/helloworld-go \
+        -t buildpack \
+        -a IMAGE=jszroberto/simple-app-from-source \
+        | kubectl apply -f -
+    ```
+
+## Demo 4: knctl
+
+`knctl` is an unofficial CLI for `Knative`:
+
+1. Deploying from image
+    ```
+    knctl deploy \
+        --namespace default \
+        --service simple-app \
+        --image  jszroberto/helloworld
+    ```
+
+2. Deploying from source code
+    ```
+    knctl deploy \
+        --namespace default \
+        --service simple-app-from-source \
+        --git-url https://github.com/jszroberto/helloworld-go \
+        --git-revision master \
+        --service-account build-bot \
+        --template buildpack \
+        --image  jszroberto/simple-app-from-source
+    ```
+3. Deploy slides from directory:
 
 ```
-knife generate-service simple-app jszroberto/helloworld | kubectl apply -f -
-```
-
-### Deploying from source code
-```
-knife generate-service simple-app-from-source jszroberto/simple-app-from-source -s build-bot -u https://github.com/jszroberto/helloworld-go -t buildpack -a IMAGE=jszroberto/simple-app-from-source | kubectl apply -f -
-```
-
-## knctl
-
-### Deploying from image
-
-```
-knctl deploy \
-    --namespace default \
-    --service simple-app \
-    --image  jszroberto/helloworld
-```
-
-### Deploying from source code
-
-```
-knctl deploy \
-    --namespace default \
-    --service simple-app-from-source \
-    --git-url https://github.com/jszroberto/helloworld-go \
-    --git-revision master \
+knctl -n default deploy \
+    --service introduction-to-knative \
+    --directory=$PWD \
     --service-account build-bot \
-    --template buildpack \
-    --image  jszroberto/simple-app-from-source
-```
-
-## Autoscaling test
-
-You can generate some load againts the endpoint and see how the application scales:
-```
-go get github.com/tscolari/bender
-bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurrency 100 --interval 100ms --keep-running
+    --image index.docker.io/jszroberto/introduction-to-knative \
+    --template buildpack
 ```
