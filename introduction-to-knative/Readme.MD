@@ -10,7 +10,7 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
 ```
 * Have a Docker Registry ready (e.g. Docker Hub).
 * Configure credentials for Docker Registry with `kubectl apply -f samples/docker.yml`. E.g: 
-    ```
+    ```yaml
     apiVersion: v1
     kind: Secret
     metadata:
@@ -35,24 +35,24 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
 ## Demo 1: kubectl
 
 1. Deploying from image
-    ```
+    ```bash
     bat samples/simple-app.yml
     kubectl apply -f samples/simple-app.yml
     ```
 1. Deploying from source code
-    ```
+    ```bash
     bat samples/simple-app-from-source.yml
     kubectl apply -f samples/simple-app-from-source.yml
     ```
 1. Deploy same application and see how revisions are created with:
-    ```
+    ```bash
     kubectl get revisions
     ```
 
 ## Demo 2: Autoscaling test
 
 1. Curl an application scaled-to-zero and see how it creates a container in a matter of seconds:
-    ```
+    ```bash
     curl ghost-app.default.knative.mybluemix-test.net
     ```
 2. You can generate some load againts the endpoint and see how the application scales:
@@ -65,16 +65,16 @@ bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurre
 
 Knife is a CLI which generates Knative configution and can be piped to `kubectl`:
 
-```
+```bash
 knife generate-service simple-app jszroberto/helloworld 
 ```
 
 1. Deploying from image
-    ```
+    ```bash
     knife generate-service simple-app jszroberto/helloworld | kubectl apply -f -
     ```
 2. Deploying from source code
-    ```
+    ```bash
     knife generate-service simple-app-from-source jszroberto/simple-app-from-source \
         -s build-bot \
         -u https://github.com/jszroberto/helloworld-go \
@@ -88,7 +88,7 @@ knife generate-service simple-app jszroberto/helloworld
 `knctl` is an unofficial CLI for `Knative`:
 
 1. Deploying from image
-    ```
+    ```bash
     knctl deploy \
         --namespace default \
         --service simple-app \
@@ -96,7 +96,7 @@ knife generate-service simple-app jszroberto/helloworld
     ```
 
 2. Deploying from source code
-    ```
+    ```bash
     knctl deploy \
         --namespace default \
         --service simple-app-from-source \
@@ -108,7 +108,7 @@ knife generate-service simple-app jszroberto/helloworld
     ```
 3. Deploy slides from directory:
 
-```
+```bash
 knctl -n default deploy \
     --service introduction-to-knative \
     --directory=$PWD \
