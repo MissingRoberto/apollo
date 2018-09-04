@@ -9,7 +9,7 @@
 kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/master/buildpack/buildpack.yaml
 ```
 * Have a Docker Registry ready (e.g. Docker Hub).
-* Configure credentials for Docker Registry with `kubectl apply -f samples/docker.yml`. E.g: 
+* Configure credentials for Docker Registry with `kubectl apply -f samples/docker.yml`:
     ```yaml
     apiVersion: v1
     kind: Secret
