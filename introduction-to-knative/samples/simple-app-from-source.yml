@@ -1,0 +1,23 @@
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: simple-app-build
+spec:
+  runLatest:
+    configuration:
+      build:
+        serviceAccountName: build-bot
+        source:
+          git:
+            revision: master
+            url: https://github.com/jszroberto/helloworld-go
+        template:
+          arguments:
+          - name: IMAGE
+            value: jszroberto/simple-app-build
+          name: buildpack
+      revisionTemplate:
+        spec:
+          container:
+            image: jszroberto/simple-app-build
