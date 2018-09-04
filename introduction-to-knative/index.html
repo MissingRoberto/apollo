@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introduction to Knative</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      h4 {
+          margin: 2px;
+          margin: 2px;
+          box-align: right;
+          font-weight: normal;
+      }
+      a {
+          color:#4169E1;
+      }
+      li {
+          font-size: 30px;
+          margin-bottom: 15px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# **Introduction to Knative**
+## The building blocks for the Cloud
+
+<img src="images/logo.png" alt="Slogan" style="width: 200px;"/>
+
+#### **Roberto Jiménez Sánchez**, Software Engineer at IBM
+#### **Simon Moser**, Senior Technical Staff Member at IBM
+
+---
+
+class: center, middle
+
+# What is Knative?
+
+---
+
+class: center, middle
+
+# Knative 
+## Kubernetes-based platform which provides the **building blocks** for serverless workloads
+
+<img src="images/lego-buildblocks.jpg" alt="Slogan" style="width: 200px;"/>
+
+---
+
+class: center, middle
+
+# Serverless
+## "cloud-computing execution model where server management and capacity planning decisions are completely hidden from the developer or operator"
+
+---
+
+class: center, middle
+# **Serverless** = I don't care about servers, I care about my code
+
+---
+
+class: center, middle
+# **Serverless** = applications, functions, one-off tasks, etc
+
+---
+class: middle, center
+
+# Many Cloud providers are contributors
+
+<img src="images/partners.png" alt="Slogan" style="width: 800px;"/>
+
+---
+class: middle, center
+
+# Lessons learned from other projects
+
+<img src="images/lessons-learned.png" alt="Slogan" style="width: 800px;"/>
+
+---
+class: left
+
+# Some use cases
+* Auto-scaling applications (from 0 to N)
+* Build application from source code
+* Build Docker images
+* Blue-Green deployments
+* Versioned-applications
+* Traffic splitting
+* Event-driven applications
+
+---
+
+class: center, middle
+
+# What is behind Knative?
+
+---
+class: middle, center
+
+# Architecture
+
+<img src="images/knative-audience.svg" alt="Slogan" style="width: 800px;"/>
+
+---
+class: middle, center
+
+# Service Definition
+
+<img src="images/service-definition.png" alt="Slogan" style="width: 600px;"/>
+
+---
+class: center, middle
+
+# Demo
+
+---
+
+# To wrap up
+
+* It provides the Kubernetes-based **building blocks for serverless workloads**
+* It's still in early stages, but evolving rapidly
+* Developer experience needs to improve
+* Easily extensible
+* You can tap into the whole capabilities of Knative, Kubernetes and Istio.
+
+---
+# Further readings
+* [Build, deploy, manage modern serverless workloads using Knative on Kubernetes](https://m.chmarny.com/build-deploy-manage-modern-serverless-workloads-using-knative-on-kubernetes-180c1a55e1b5)
+* [Running my first application on Knative](https://medium.com/@totemteleko/running-my-first-application-on-knative-ddaff2ce2ea0)
+* [How to run an application easily on Knative](https://medium.com/@totemteleko/how-to-run-an-application-easily-on-knative-946ee7e74b11)
+* [Bringing Cloud Foundry developer experience to Knative](https://medium.com/@totemteleko/bringing-cloud-foundry-developer-experience-to-knative-513d23e957f)
+
+
+---
+class: center, middle
+
+# Questions?
+
+---
+class: center, middle
+
+
+# Find us on Twitter 
+<img src="images/twitter-logo.png" alt="Slogan" style="width: 200px;"/>
+## Roberto Jimenez **@jszroberto** 
+## Simon Moser **@mosersd**
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

@@ -2,13 +2,13 @@
 
 ## Prerequisites
 
-* Kubernetes, Istio and Knative already deployed
-* Install buildpack template
+* Kubernetes, Istio and Knative already deployed.
+* Install buildpack template:
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/master/buildpack/buildpack.yaml
 ```
-* Have a Docker Registry ready
+* Have a Docker Registry ready (e.g. Docker Hub).
 * Configure credentials for Docker Registry with `kubectl apply -f samples/docker.yml`. E.g: 
     ```
     apiVersion: v1
@@ -31,7 +31,7 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
     - name: basic-user-pass
     - name: registry
     ```
-## Kubectl examples
+## kubectl
 
 ### Deploying from image
 
@@ -45,7 +45,7 @@ kubectl apply -f samples/simple-app.yml
 kubectl apply -f samples/simple-app-from-source.yml
 ```
 
-## Knife examples
+## Knife
 
 Knife generates Knative configution: 
 
@@ -64,7 +64,7 @@ knife generate-service simple-app jszroberto/helloworld | kubectl apply -f -
 knife generate-service simple-app-from-source jszroberto/simple-app-from-source -s build-bot -u https://github.com/jszroberto/helloworld-go -t buildpack -a IMAGE=jszroberto/simple-app-from-source | kubectl apply -f -
 ```
 
-## knctl examples
+## knctl
 
 ### Deploying from image
 
@@ -86,4 +86,12 @@ knctl deploy \
     --service-account build-bot \
     --template buildpack \
     --image  jszroberto/simple-app-from-source
+```
+
+## Autoscaling test
+
+You can generate some load againts the endpoint and see how the application scales:
+```
+go get github.com/tscolari/bender
+bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurrency 100 --interval 100ms --keep-running
 ```
