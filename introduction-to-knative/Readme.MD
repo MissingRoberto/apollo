@@ -1,5 +1,11 @@
 # Demos
 
+# Recommended readings before running these demos
+
+* [Build, deploy, manage modern serverless workloads using Knative on Kubernetes](https://m.chmarny.com/build-deploy-manage-modern-serverless-workloads-using-knative-on-kubernetes-180c1a55e1b5)
+* [Running my first application on Knative](https://medium.com/@totemteleko/running-my-first-application-on-knative-ddaff2ce2ea0)
+* [How to run an application easily on Knative](https://medium.com/@totemteleko/how-to-run-an-application-easily-on-knative-946ee7e74b11)
+
 ### Prerequisites
 
 * Kubernetes, Istio and Knative already deployed.
@@ -119,7 +125,4 @@ knctl -n default deploy \
 
 
 # Further readings
-* [Build, deploy, manage modern serverless workloads using Knative on Kubernetes](https://m.chmarny.com/build-deploy-manage-modern-serverless-workloads-using-knative-on-kubernetes-180c1a55e1b5)
-* [Running my first application on Knative](https://medium.com/@totemteleko/running-my-first-application-on-knative-ddaff2ce2ea0)
-* [How to run an application easily on Knative](https://medium.com/@totemteleko/how-to-run-an-application-easily-on-knative-946ee7e74b11)
 * [Bringing Cloud Foundry developer experience to Knative](https://medium.com/@totemteleko/bringing-cloud-foundry-developer-experience-to-knative-513d23e957f)
