@@ -2,7 +2,7 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: simple-app-build
+  name: simple-app
 spec:
   runLatest:
     configuration:
@@ -15,9 +15,9 @@ spec:
         template:
           arguments:
           - name: IMAGE
-            value: jszroberto/simple-app-build
+            value: jszroberto/simple-app-from-source
           name: buildpack
       revisionTemplate:
         spec:
           container:
-            image: jszroberto/simple-app-build
+            image: jszroberto/simple-app-from-source

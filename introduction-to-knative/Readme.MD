@@ -44,6 +44,12 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
     bat samples/simple-app.yml
     kubectl apply -f samples/simple-app.yml
     ```
+1. Interact with the app
+    ```
+    export HOST_URL=$(kubectl get route simple-app  -o jsonpath='{.status.domain}')
+    export IP_ADDRESS=$(kubectl get node  -o 'jsonpath={.items[0].status.addresses[0].address}'):$(kubectl get svc knative-ingressgateway -n istio-system   -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
+    curl -H "Host: ${HOST_URL}" "http://${IP_ADDRESS}"
+    ```
 1. Deploying from source code
     ```bash
     bat samples/simple-app-from-source.yml
@@ -63,7 +69,7 @@ kubectl apply -f https://raw.githubusercontent.com/knative/build-templates/maste
 2. You can generate some load againts the endpoint and see how the application scales:
 ```
 go get github.com/tscolari/bender
-bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurrency 100 --interval 100ms --keep-running
+bender --command "curl -H \"Host: ${HOST_URL}\" http://${IP_ADDRESS}" --concurrency 100 --interval 100ms --keep-running
 ```
 
 ## Demo 3: Knife
@@ -71,16 +77,16 @@ bender --command "curl simple-app.default.knative.mybluemix-test.net" --concurre
 Knife is a CLI which generates Knative configution and can be piped to `kubectl`:
 
 ```bash
-knife generate-service simple-app jszroberto/helloworld 
+knife generate-service simple-app jszroberto/helloworld
 ```
 
 1. Deploying from image
     ```bash
     knife generate-service simple-app jszroberto/helloworld | kubectl apply -f -
     ```
-2. Deploying from source code
+1. Deploying from source code
     ```bash
-    knife generate-service simple-app-from-source jszroberto/simple-app-from-source \
+    knife generate-service simple-app jszroberto/simple-app-from-source \
         -s build-bot \
         -u https://github.com/jszroberto/helloworld-go \
         -t buildpack \
@@ -99,12 +105,11 @@ knife generate-service simple-app jszroberto/helloworld
         --service simple-app \
         --image  jszroberto/helloworld
     ```
-
 2. Deploying from source code
     ```bash
     knctl deploy \
         --namespace default \
-        --service simple-app-from-source \
+        --service simple-app \
         --git-url https://github.com/jszroberto/helloworld-go \
         --git-revision master \
         --service-account build-bot \
@@ -121,7 +126,6 @@ knctl -n default deploy \
     --image index.docker.io/jszroberto/introduction-to-knative \
     --template buildpack
 ```
-
 
 # Further readings
 * [Bringing Cloud Foundry developer experience to Knative](https://medium.com/@totemteleko/bringing-cloud-foundry-developer-experience-to-knative-513d23e957f)
