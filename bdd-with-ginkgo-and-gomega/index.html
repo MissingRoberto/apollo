@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Behavior Driven Development with Ginkgo and Gomega</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+
+      h4 {
+          margin: 2px;
+          margin: 2px;
+          box-align: right;
+          font-weight: normal;
+      }
+      a {
+          color:#4169E1;
+      }
+      li {
+          font-size: 30px;
+          margin-bottom: 15px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# **Behavior Driven Development with Ginkgo and Gomega**
+
+<img src="images/logo.png" alt="Slogan" style="width: 200px;"/>
+
+<hr>
+## **Roberto Jiménez Sánchez**, Software Engineer at Delivery Hero
+<br>
+<br>
+
+---
+
+class: middle
+
+# About me
+
+<img src="images/picture.jpg" alt="Slogan" style="width: 200px;"/>
+
+- Backend Engineer in **Ordering Experience** Squad 🛒
+- Background: Cloud Foundry/Knative committer and Software Engineer at IBM Cloud
+- Gopher since 2014
+- **Fun fact**: secretly a bartender 🍻
+
+---
+
+class: middle
+
+# Agenda
+
+* Test-Driven Development
+* Behaviour-Driven Development
+* Ginkgo
+* Gomega
+
+---
+
+class: left, middle
+
+# Test-Driven Development (TDD)
+
+
+1. 📝 write test
+2. 🔴 watch it fail
+3. 👩‍💻 add new code
+4. ✅ test are green
+5. 🔁 Repeat
+
+### Make sure that your code is fixing your problem
+
+---
+class: left, middle
+
+# Behavior-Driven Development (BDD)
+
+- English description of tests
+- Derived directly from specifications
+- Comprehensive to non-technical readers
+
+```go
+    var _ = Describe("Set", func() {
+    	Describe("Contains", func() {
+    		Context("When red has been added", func() {
+    			It("Should contain red", func() {
+    			})
+    		})
+    	})
+    })
+
+```
+
+---
+class: middle, center
+
+### Even if you don't TDD, consider...
+
+## how will others use my code?
+
+### (e.g. You go read the specs and then see it works as expected)
+
+---
+class: middle, center
+
+# Ginkgo
+
+---
+class: left
+
+# Ginkgo (⭐3.6k)
+
+
+- Ginkgo is a BDD(Behavior Driven Development)-style testing framework for Golang, and its preferred matcher library is Gomega.
+- Help you efficiently write **descriptive** and **comprehensive** tests
+- Support Test Driven Development (TDD)
+
+[Ginkgo Documentation](https://onsi.github.io/ginkgo/)
+
+---
+class: center, middle
+
+# How does it achieves that?
+
+
+---
+class: center, middle
+
+# By improving the development flow
+
+---
+class: middle
+
+# 📝 write test
+* find the place quicker (e.g. structure, readability, etc)
+* write less code by reusing
+  * don't reinvent the wheel (e.g. table tests, etc)
+
+# 🔴 watch it fail
+* run the test or tests you want quickly
+---
+class: middle
+# 💻 add new code
+# ✅ test are green
+* run the test or tests you want quickly
+
+# 🔁 Repeat
+
+---
+
+# Alternative BDD-frameworks
+
+- Convey: 5.3k ⭐
+
+    [smartystreets/goconvey](https://github.com/smartystreets/goconvey)
+
+- Godog: 896 ⭐
+
+    [DATA-DOG/godog](https://github.com/DATA-DOG/godog)
+
+- Goblin: 652 ⭐
+
+    [franela/goblin](https://github.com/franela/goblin)
+
+---
+class: center, middle
+
+# Let's get started
+
+---
+class: middle
+
+1. Install Ginkgo CLI
+  ```go
+  go get github.com/onsi/ginkgo/ginkgo
+
+  ```
+---
+class: middle
+
+### 2. Bootstrap tests in a package
+  ```bash
+    $ cd path/to/books
+    $ ls
+    book.go
+    $ ginkgo bootstrap
+    $ ls
+    book.go
+    books_test.go # Generated
+  ```
+
+### You should see something like this
+  ```go
+
+    package books_test
+    
+    import (
+        . "github.com/onsi/ginkgo"
+        . "github.com/onsi/gomega"
+        "testing"
+    )
+    
+    func TestBooks(t *testing.T) {
+        RegisterFailHandler(Fail)
+        RunSpecs(t, "Books Suite")
+    }
+
+  ```
+
+---
+class: middle
+
+### 3. Generate specs for your code
+```bash
+  $ ginkgo generate book
+  $ ls
+  book.go
+  book_test.go #Generated
+  books_test.go
+```
+```go
+package books_test
+
+import (
+    . "/path/to/books"
+    . "github.com/onsi/ginkgo"
+    . "github.com/onsi/gomega"
+)
+
+var _ = Describe("Book", func() {
+
+})
+```
+---
+class: middle
+
+### 4. Write your first spec
+
+```go
+package books_test
+
+import (
+    . "/path/to/books"
+    . "github.com/onsi/ginkgo"
+    . "github.com/onsi/gomega"
+)
+
+var _ = Describe("Book", func() {
+  It("works!", func() {
+  })
+})
+```
+
+---
+class: middle
+
+### 5. Run the tests
+```bash
+$ ginkgo #or go test
+    
+    === RUN TestBootstrap
+    
+    Running Suite: Books Suite
+    ==========================
+    Random Seed: 1378936983
+    
+    Will run 1 of 1 specs
+    
+    
+    Ran 0 of 0 Specs in 0.000 seconds
+    SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 0 Skipped
+    
+    --- PASS: TestBootstrap (0.00 seconds)
+    PASS
+    ok      books   0.019s
+
+```
+
+---
+class: middle
+
+### Or make it fail:
+
+```bash
+$ ginkgo ./.
+    Running Suite: Books Suite
+    ==========================
+    Random Seed: 1580299170
+    Will run 1 of 1 specs
+    
+    • Failure [0.000 seconds]
+    Book
+    /Users/r.jimenez/workspace/013-ginkgo-gomega/books/book_test.go:9
+      works! [It]
+      /Users/r.jimenez/workspace/013-ginkgo-gomega/books/book_test.go:10
+    
+      Must fail!
+    
+      /Users/r.jimenez/workspace/013-ginkgo-gomega/books/book_test.go:11
+    ------------------------------
+    
+    
+    Summarizing 1 Failure:
+    
+    [Fail] Book [It] works!
+    /Users/r.jimenez/workspace/013-ginkgo-gomega/books/book_test.go:11
+    
+    Ran 1 of 1 Specs in 0.001 seconds
+    FAIL! -- 0 Passed | 1 Failed | 0 Pending | 0 Skipped
+    --- FAIL: TestBooks (0.00s)
+    FAIL
+
+
+```
+---
+class: middle
+# Some useful commands
+
+- `ginkgo watch`: trigger test execution when changes are detected.
+- `ginkgo --dryRun`: dry-run your tests.
+- `ginkgo --failFast`: make the tests fail as soon as one test fails
+- `ginkgo --untilItFails`: run tests until they fail.
+- `ginkgo --randomizeAllSpecs`: run specs in a random order.
+- `ginkgo --timeout`: set a global timeout for the whole text execution.
+- `ginkgo --flakeAttempts 3`: retries in case of tests failure.
+
+---
+
+class: center
+# Anatomy of a test
+
+## **WHEN**: X happens
+## **GIVEN**: Y is true
+## **THEN**: Z must be true
+
+---
+class: left, middle
+
+# WHEN
+- `Describe` : individual behaviours of the code.
+- `Context`: circumstances of those behaviours
+
+---
+```go
+
+var _ = Describe("Book", func() {
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+            })
+
+            It("should not error", func() {
+            })
+        })
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
+            })
+        })
+    })
+
+    Describe("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
+---
+class: left
+# GIVEN
+
+- `BeforeSuite`, `AfterSuite` common for all tests, and executed only once (e.g.  booting a database)
+- `JustBeforeEach`, `BeforeEach` , `JustAfterEach` `AfterEach` are used for common setup.
+    - closures are heavily used to share variables across tests.
+    - when using nested contexts, they are executed from the outermost to innermost of each type in the following order:
+---
+```go
+
+package books_test
+
+import (
+    . "github.com/onsi/ginkgo"
+    . "github.com/onsi/gomega"
+
+    "your/db"
+
+    "testing"
+)
+
+var dbRunner *db.Runner
+var dbClient *db.Client
+
+func TestBooks(t *testing.T) {
+    RegisterFailHandler(Fail)
+
+    RunSpecs(t, "Books Suite")
+}
+
+var _ = BeforeSuite(func() {
+    dbRunner = db.NewRunner()
+    _ = dbRunner.Start()
+
+    dbClient = db.NewClient()
+    _ = dbClient.Connect(dbRunner.Address())
+})
+
+var _ = AfterSuite(func() {
+    dbClient.Cleanup()
+    dbRunner.Stop()
+})
+
+```
+---
+```go
+var _ = Describe("Book", func() {
+    var (
+        book Book
+        err error
+        json string
+    )
+
+    BeforeEach(func() {
+        json = `{
+            "title":"Les Miserables",
+            "author":"Victor Hugo",
+            "pages":1488
+        }`
+    })
+
+    JustBeforeEach(func() {
+        book, err = NewBookFromJSON(json)
+    })
+
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+            })
+        })
+
+        Context("when the JSON fails to parse", func() {
+            BeforeEach(func() {
+                json = `{
+                    "title":"Les Miserables",
+                    "author":"Victor Hugo",
+                    "pages":1488oops
+                }`
+            })
+
+            It("should return the zero-value for the book", func() {
+            })
+        })
+    })
+})
+
+```
+
+---
+class: left
+
+# THEN
+
+- `It` or `Specify` for a single spec
+
+```go
+var _ = Describe("Book", func() {
+    It("can be loaded from JSON", func() {
+        book := NewBookFromJSON(`{
+            "title":"Les Miserables",
+            "author":"Victor Hugo",
+            "pages":1488
+        }`)
+
+        // Do Something
+        // Check your expectations
+    })
+})
+```
+
+(This is the actual test code once all the setup and cleanup part has been defined in the context)
+
+---
+# Focused Tests
+
+Adding the prefix `F` to any `It`, `Describe` or `Context` allows to run a particular set of tests you are interested at the moment
+```go
+var _ = Describe("Book", func() {
+    // Tests within this Describe will run
+    FDescribe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+            })
+
+            It("should not error", func() {
+            })
+        })
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
+            })
+        })
+    })
+    // Rest of the tests are ignored
+    Describe("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
+
+---
+# Pending tests
+
+In the same way, you to mark one or multiple tests as `Pending` with the prefix `P` to ignore them:
+```go
+var _ = Describe("Book", func() {
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+            })
+
+            It("should not error", func() {
+            })
+        })
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
+            })
+        })
+    })
+    // Ignore all the tests inside this Describe and run the rest
+    PDescribe("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
+
+---
+class: middle
+
+# Convert standard tests to Ginkgo tests
+
+```go
+$ ginkgo convert path/to/mypackage
+```
+
+---
+class: middle, center
+
+# Gomega
+
+---
+# Gomega (⭐1k)
+
+* Gomega is a **matcher**/**assertion** library. It is best paired with the Ginkgo BDD test framework, but can be adapted for use in other contexts too.
+* Focused on **readability** and **modularity**. 
+* Alternative to Testify (⭐️9.5k) [stretchr/testify](https://github.com/stretchr/testify)
+
+[Gomega](http://onsi.github.io/gomega/)
+
+---
+# Matchers
+- Matchers for anything you can expect as you would expect like `Equal` , `BeNil`, `BeEmpty` , `ContainElement`, `BeTrue`, `BeFalse` , `MatchJSON`, etc.
+- Matchers can be combined as well.
+  ```go
+  MatchError(ContainSubstring("beginning of my error"))
+  ```
+- You can define **custom GomegaMatchers** by implement `GomegaMatcher` from [`github.com/onsi/gomega/types`](http://github.com/onsi/gomega/types)
+- More here in [Gomega Godoc](https://godoc.org/github.com/onsi/gomega)
+
+---
+
+# Synchronous assertions
+
+Assertions start with `Expect` and follow the following syntax:
+```go
+Expect(foo).To(Equal("foo"))
+// For the opposite
+Expect(foo).ToNot(Equal("bar"))
+
+```
+
+---
+
+# Check errors
+
+```go
+err := DoSomething()
+Expect(err).ToNot(HaveOcurred())
+
+// or alternatively
+
+Expect(DoSomething()).To(Succeed())
+
+// Or check a concrete error
+
+Expect(err).To(MatchError("expected error"))
+
+// Check if a concrete error contains some substring
+err := errors.New("didn't work: because you weren't lucky")
+
+Expect(err).To(MatchError(ContainSubstring("didn't work")))
+
+```
+Notice that we don't have to pass the value to the matchers. 
+
+---
+# Checking maps
+```go
+Expect(myMap).To(HaveKey("foo"))
+Expect(myMap).To(HaveKeyWithValue("foo", "bar"))
+
+
+// Checking multiple things at once
+Expect(myMap).To(
+  SatisfyAll(
+    HaveKey("foo"),
+    HaveKey("bar"),
+  ),
+)
+
+```
+---
+
+# Asynchronous assertions
+### `Eventually`
+
+Checks if the assertion eventually passes.
+
+```go
+Eventually(func() []int {
+    return thing.SliceImMonitoring
+}).Should(HaveLen(2))
+
+Eventually(func() string {
+    return thing.Status
+}).ShouldNot(Equal("Stuck Waiting"))
+```
+
+### `Consistently`
+
+checks that an assertion passes for a period of time
+```go
+Consistently(func() []int {
+    return thing.MemoryUsage()
+}).Should(BeNumerically("<", 10))
+
+```
+
+---
+
+# Timeout and Polling interval
+
+* You can configure a polling internal and a timeout in both `Eventually` and `Consistently`
+
+```go
+    duration := time.Second()
+    pollingInterval := 100 * time.Millisecond()
+
+    Consistently(func() []int {
+        return thing.MemoryUsage()
+    }, timeout, pollingInterval).Should(BeNumerically("<", 10))
+```
+
+---
+
+# Other utilities
+* **Gexec**: testing external processes https://onsi.github.io/gomega/#gexec-testing-external-processes
+* **Ghttp**: testing HTTP clients https://onsi.github.io/gomega/#ghttp-testing-http-clients
+* **Gbytes**: testing streaming buffers https://onsi.github.io/gomega/#gbytes-testing-streaming-buffers
+
+---
+class: left
+# To wrap up
+
+* Ginkgo helps you structure your tests in a more descriptive way and run tests in a more convenient.
+* Gomega provides matchers that are composable.
+* Together they can improve your development workflow.
+
+---
+class: center,middle
+
+# Questions?
+
+---
+class: center, middle
+
+<img src="images/picture.jpg" alt="Slogan" style="width: 200px;"/>
+## Twitter [**@jszroberto**](https://twitter.com/jszroberto)
+## Medium [**@totemteleko**](https://medium.com/@totemteleko)
+
+Slides: 
+More detail notes in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
