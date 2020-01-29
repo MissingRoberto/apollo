@@ -37,10 +37,14 @@ class: center, middle
 
 # **Behavior Driven Development with Ginkgo and Gomega**
 
-<img src="images/logo.png" alt="Slogan" style="width: 200px;"/>
+<img src="images/ginkgo.jpeg" alt="Slogan" style="width: 300px;"/>
+<img src="images/gomega.png" alt="Slogan" style="width: 300px;"/>
 
 <hr>
-## **Roberto Jiménez Sánchez**, Software Engineer at Delivery Hero
+## **Roberto Jiménez Sánchez**
+### Software Engineer at Delivery Hero
+
+<img src="images/delivery-hero.png" alt="Slogan" style="width: 80px;"/>
 <br>
 <br>
 
@@ -116,8 +120,7 @@ class: middle, center
 ---
 class: middle, center
 
-# Ginkgo
-
+<img src="images/ginkgo.jpeg" alt="Slogan" style="width: 400px;"/>
 ---
 class: left
 
@@ -128,7 +131,8 @@ class: left
 - Help you efficiently write **descriptive** and **comprehensive** tests
 - Support Test Driven Development (TDD)
 
-[Ginkgo Documentation](https://onsi.github.io/ginkgo/)
+
+### [Ginkgo Docs](https://onsi.github.io/ginkgo/)
 
 ---
 class: center, middle
@@ -359,25 +363,20 @@ class: left, middle
 var _ = Describe("Book", func() {
     Describe("loading from JSON", func() {
         Context("when the JSON parses succesfully", func() {
-            It("should populate the fields correctly", func() {
-            })
+            It("should populate the fields correctly", func() {})
 
-            It("should not error", func() {
-            })
+            It("should not error", func() {})
         })
 
         Context("when the JSON fails to parse", func() {
-            It("should return the zero-value for the book", func() {
-            })
+            It("should return the zero-value for the book", func() {})
 
-            It("should error", func() {
-            })
+            It("should error", func() {})
         })
     })
 
     Describe("Extracting the author's last name", func() {
-        It("should correctly identify and return the last name", func() {
-        })
+        It("should correctly identify and return the last name", func() {})
     })
 })
 ```
@@ -430,15 +429,14 @@ var _ = AfterSuite(func() {
 ```go
 var _ = Describe("Book", func() {
     var (
+        json string
         book Book
         err error
-        json string
     )
 
     BeforeEach(func() {
         json = `{
             "title":"Les Miserables",
-            "author":"Victor Hugo",
             "pages":1488
         }`
     })
@@ -448,22 +446,15 @@ var _ = Describe("Book", func() {
     })
 
     Describe("loading from JSON", func() {
-        Context("when the JSON parses succesfully", func() {
-            It("should populate the fields correctly", func() {
-            })
-        })
-
         Context("when the JSON fails to parse", func() {
             BeforeEach(func() {
                 json = `{
                     "title":"Les Miserables",
-                    "author":"Victor Hugo",
                     "pages":1488oops
                 }`
             })
 
-            It("should return the zero-value for the book", func() {
-            })
+            It("should return the zero-value for the book", func() {})
         })
     })
 })
@@ -503,25 +494,20 @@ var _ = Describe("Book", func() {
     // Tests within this Describe will run
     FDescribe("loading from JSON", func() {
         Context("when the JSON parses succesfully", func() {
-            It("should populate the fields correctly", func() {
-            })
+            It("should populate the fields correctly", func() {})
 
-            It("should not error", func() {
-            })
+            It("should not error", func() {})
         })
 
         Context("when the JSON fails to parse", func() {
-            It("should return the zero-value for the book", func() {
-            })
+            It("should return the zero-value for the book", func() {})
 
-            It("should error", func() {
-            })
+            It("should error", func() {})
         })
     })
     // Rest of the tests are ignored
     Describe("Extracting the author's last name", func() {
-        It("should correctly identify and return the last name", func() {
-        })
+        It("should correctly identify and return the last name", func() {})
     })
 })
 ```
@@ -534,25 +520,20 @@ In the same way, you to mark one or multiple tests as `Pending` with the prefix 
 var _ = Describe("Book", func() {
     Describe("loading from JSON", func() {
         Context("when the JSON parses succesfully", func() {
-            It("should populate the fields correctly", func() {
-            })
+            It("should populate the fields correctly", func() {})
 
-            It("should not error", func() {
-            })
+            It("should not error", func() {})
         })
 
         Context("when the JSON fails to parse", func() {
-            It("should return the zero-value for the book", func() {
-            })
+            It("should return the zero-value for the book", func() {})
 
-            It("should error", func() {
-            })
+            It("should error", func() {})
         })
     })
     // Ignore all the tests inside this Describe and run the rest
     PDescribe("Extracting the author's last name", func() {
-        It("should correctly identify and return the last name", func() {
-        })
+        It("should correctly identify and return the last name", func() {})
     })
 })
 ```
@@ -569,7 +550,7 @@ $ ginkgo convert path/to/mypackage
 ---
 class: middle, center
 
-# Gomega
+<img src="images/gomega.png" alt="Slogan" style="width: 400px;"/>
 
 ---
 # Gomega (⭐1k)
@@ -710,9 +691,12 @@ class: center, middle
 <img src="images/picture.jpg" alt="Slogan" style="width: 200px;"/>
 ## Twitter [**@jszroberto**](https://twitter.com/jszroberto)
 ## Medium [**@totemteleko**](https://medium.com/@totemteleko)
+<img src="images/medium.jpg" alt="Slogan" style="width: 100px;"/>
+<img src="images/twitter.png" alt="Slogan" style="width: 100px;"/>
 
-Slides: 
-More detail notes in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+### More detailed notes in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+
+
 
 
     </textarea>
