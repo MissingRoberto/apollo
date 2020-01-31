@@ -1,0 +1,6 @@
+---
+applications:
+- name: bdd-with-ginkgo-and-gomega
+  buildpack: staticfile_buildpack
+  memory: 64M
+  disk_quota: 256M
