@@ -1,6 +1,8 @@
 # Go Talk: Behavior Driven Development with Ginkgo and Gomega
 
-Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+Notes also available in
+[Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+and slides alonside this readme ([slides](./slides.pdf).
 
 ## Table of contents
 
