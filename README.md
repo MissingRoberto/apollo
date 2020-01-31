@@ -2,12 +2,11 @@
 
 Repository with different presentations, examples, blog posts and other content.
 
-## Presentations
 
-### Go
+## Go
 * [Go Talk: Behaviour Driven Development with Ginkgo and
   Gomega](bdd-with-ginkgo-and-gomega)
 
-### Kubernetes
+## Kubernetes
 * [Introduction to Knative](introduction-to-knative)
 
