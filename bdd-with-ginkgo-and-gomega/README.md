@@ -263,31 +263,46 @@ If you make it fail:
 
 - Trigger test execution when changes are detected
 
+```
     ginkgo watch
+```
+
 
 - Just dry-run your tests
 
+```
     ginkgo --dryRun
+```
 
 - Make the tests fail as soon as one test fails
 
+```
     ginkgo --failFast
+```
 
 - Run a test until if fails
 
+```
     ginkgo --untilItFails
+```
 
 - Run specs in a randomized order
 
+```
     ginkgo --randomizeAllSpecs
+```
 
 - Configure flake attempts
 
+```
     ginkgo --flakeAttempts 2
+```
 
 - Set a global timeout for the whole test execution
 
+```
     ginkgo -timeout=100
+```
 
 ## Anatomy of a test
 - **WHEN**: X happens
@@ -378,7 +393,7 @@ var _ = AfterSuite(func() {
         6. All `AfterEach` 
         7. `AfterSuite` (just once for all tests). 
 
-```
+```go
 var _ = Describe("Book", func() {
     var (
         book Book
@@ -446,7 +461,7 @@ Adding the prefix `F` to any `It`, `Describe` or `Context` allows to run a parti
 ```go
 var _ = Describe("Book", func() {
     // Tests within this Describe will run
-    **FDescribe**("loading from JSON", func() {
+    FDescribe("loading from JSON", func() {
         Context("when the JSON parses succesfully", func() {
             It("should populate the fields correctly", func() {
             })
@@ -497,7 +512,7 @@ var _ = Describe("Book", func() {
         })
     })
     // Ignore all the tests inside this Describe and run the rest
-    **PDescribe**("Extracting the author's last name", func() {
+    PDescribe("Extracting the author's last name", func() {
         It("should correctly identify and return the last name", func() {
         })
     })
