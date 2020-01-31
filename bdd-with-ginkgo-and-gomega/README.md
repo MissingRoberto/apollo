@@ -4,14 +4,12 @@ Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driv
 
 ## Table of contents
 
-* [Go Talk: Behavior Driven Development with Ginkgo and Gomega](#go-talk-behavior-driven-development-with-ginkgo-and-gomega)
-  * [Notes also available in <a href="https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d" rel="nofollow">Notion.so</a>](#notes-also-available-in-notionso)
-  * [About me](#about-me)
+* [About me](#about-me)
 * [Introduction](#introduction)
   * [Test-Driven Development (TDD)](#test-driven-development-tdd)
      * [Development flow](#development-flow)
   * [Behavior-Driven Development (BDD)](#behavior-driven-development-bdd)
-* [Ginkgo (⭐3.6k)](#ginkgo-36k)
+* [Ginkgo (⭐ 3.6k)](#ginkgo-36k)
      * [How?](#how)
      * [Alternative BDD-frameworks](#alternative-bdd-frameworks)
   * [Getting started](#getting-started)
@@ -23,7 +21,7 @@ Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driv
      * [THEN](#then)
   * [Focused &amp; Pending Tests](#focused--pending-tests)
   * [How to convert standard tests to Ginkgo tests?](#how-to-convert-standard-tests-to-ginkgo-tests)
-* [Gomega (⭐1k)](#gomega-1k)
+* [Gomega (⭐ 1k)](#gomega-1k)
   * [Alternatives](#alternatives)
   * [Matchers](#matchers)
   * [Synchronous assertions](#synchronous-assertions)
@@ -49,8 +47,8 @@ Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driv
 - Gopher since 2014
 - **Fun fact**: secretly a bartender 🍻
 
-[Roberto Jimenez - Twitter](https://twitter.com/jszroberto)
-[Roberto Jimenez - Medium](https://medium.com/@totemteleko)
+* [Roberto Jimenez - Twitter](https://twitter.com/jszroberto)
+* [Roberto Jimenez - Medium](https://medium.com/@totemteleko)
 
 ---
 
@@ -76,14 +74,16 @@ Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driv
 - Derived directly from specifications
 - Comprehensive to non-technical readers
 
-    var _ = Describe("Set", func() {
-    	Describe("Contains", func() {
-    		Context("When red has been added", func() {
-    			It("Should contain red", func() {
-    			})
-    		})
-    	})
+```go
+var _ = Describe("Set", func() {
+  Describe("Contains", func() {
+    Context("When red has been added", func() {
+      It("Should contain red", func() {
+      })
     })
+  })
+})
+```
 
 even if you don't TDD, consider: 
 
@@ -91,7 +91,7 @@ even if you don't TDD, consider:
 
 **Answer**: You go read the specs and then see it works as expected.
 
-# Ginkgo (⭐3.6k)
+# Ginkgo (⭐ 3.6k)
 
 [Ginkgo](https://onsi.github.io/ginkgo/)
 
@@ -155,20 +155,22 @@ By improving the development flow.
         $ ginkgo bootstrap
         $ ls
         book.go
-        **books_test.go # Generated**
+        books_test.go # Generated
 
-        package books_test
-        
-        import (
-            . "github.com/onsi/ginkgo"
-            . "github.com/onsi/gomega"
-            "testing"
-        )
-        
-        func TestBooks(t *testing.T) {
-            RegisterFailHandler(Fail)
-            RunSpecs(t, "Books Suite")
-        }
+    ```go
+    package books_test
+    
+    import (
+        . "github.com/onsi/ginkgo"
+        . "github.com/onsi/gomega"
+        "testing"
+    )
+    
+    func TestBooks(t *testing.T) {
+        RegisterFailHandler(Fail)
+        RunSpecs(t, "Books Suite")
+    }
+    ```
 
 3. Generate specs for your code
 
@@ -176,36 +178,37 @@ By improving the development flow.
         $ ginkgo generate book
         $ ls
         book.go
-        **book_test.go #Generated**
+        book_test.go #Generated
         books_test.go
 
-        package books_test
-        
-        import (
-            . "/path/to/books"
-            . "github.com/onsi/ginkgo"
-            . "github.com/onsi/gomega"
-        )
-        
-        var _ = Describe("Book", func() {
-        
-        })
+  ```go
+  package books_test
 
+  import (
+      . "/path/to/books"
+      . "github.com/onsi/ginkgo"
+      . "github.com/onsi/gomega"
+  )
+
+  var _ = Describe("Book", func() {
+
+  })
+  ```
 4. Write your first expect
+  ```go
+  package books_test
 
-        package books_test
-        
-        import (
-            . "/path/to/books"
-            . "github.com/onsi/ginkgo"
-            . "github.com/onsi/gomega"
-        )
-        
-        var _ = Describe("Book", func() {
-        	It("works!", func() {
-        	})
-        })
+  import (
+      . "/path/to/books"
+      . "github.com/onsi/ginkgo"
+      . "github.com/onsi/gomega"
+  )
 
+  var _ = Describe("Book", func() {
+    It("works!", func() {
+    })
+  })
+  ```
 5. Run the tests:
 
         $ ginkgo #or go test
@@ -296,68 +299,73 @@ If you make it fail:
 - `Describe` : individual behaviours of the code.
 - `Context`: circumstances of those behaviours
 
-    var _ = Describe("Book", func() {
-        Describe("loading from JSON", func() {
-            Context("when the JSON parses succesfully", func() {
-                It("should populate the fields correctly", func() {
-                  
-                })
-    
-                It("should not error", func() {
-                })
+```go 
+var _ = Describe("Book", func() {
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+              
             })
-    
-            Context("when the JSON fails to parse", func() {
-                It("should return the zero-value for the book", func() {
-                })
-    
-                It("should error", func() {
-                })
+
+            It("should not error", func() {
             })
         })
-    
-        Describe("Extracting the author's last name", func() {
-            It("should correctly identify and return the last name", func() {
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
             })
         })
     })
+
+    Describe("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
 
 ### GIVEN
 
 - `BeforeSuite`, `AfterSuite` common for all tests, and executed only once (e.g.  booting a database)
 
-        package books_test
-        
-        import (
-            . "github.com/onsi/ginkgo"
-            . "github.com/onsi/gomega"
-        
-            "your/db"
-        
-            "testing"
-        )
-        
-        var dbRunner *db.Runner
-        var dbClient *db.Client
-        
-        func TestBooks(t *testing.T) {
-            RegisterFailHandler(Fail)
-        
-            RunSpecs(t, "Books Suite")
-        }
-        
-        var _ = BeforeSuite(func() {
-            dbRunner = db.NewRunner()
-            _ = dbRunner.Start()
-        
-            dbClient = db.NewClient()
-            _ = dbClient.Connect(dbRunner.Address())
-        })
-        
-        var _ = AfterSuite(func() {
-            dbClient.Cleanup()
-            dbRunner.Stop()
-        })
+```go
+package books_test
+
+import (
+    . "github.com/onsi/ginkgo"
+    . "github.com/onsi/gomega"
+
+    "your/db"
+
+    "testing"
+)
+
+var dbRunner *db.Runner
+var dbClient *db.Client
+
+func TestBooks(t *testing.T) {
+    RegisterFailHandler(Fail)
+
+    RunSpecs(t, "Books Suite")
+}
+
+var _ = BeforeSuite(func() {
+    dbRunner = db.NewRunner()
+    _ = dbRunner.Start()
+
+    dbClient = db.NewClient()
+    _ = dbClient.Connect(dbRunner.Address())
+})
+
+var _ = AfterSuite(func() {
+    dbClient.Cleanup()
+    dbRunner.Stop()
+})
+
+```
 
 - `JustBeforeEach`, `BeforeEach` , `JustAfterEach` `AfterEach` are used for common setup.
     - closures are heavily used to share variables across tests.
@@ -370,124 +378,131 @@ If you make it fail:
         6. All `AfterEach` 
         7. `AfterSuite` (just once for all tests). 
 
-        var _ = Describe("Book", func() {
-            var (
-                book Book
-                err error
-                json string
-            )
-        
+```
+var _ = Describe("Book", func() {
+    var (
+        book Book
+        err error
+        json string
+    )
+
+    BeforeEach(func() {
+        json = `{
+            "title":"Les Miserables",
+            "author":"Victor Hugo",
+            "pages":1488
+        }`
+    })
+
+    JustBeforeEach(func() {
+        book, err = NewBookFromJSON(json)
+    })
+
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
+            })
+        })
+
+        Context("when the JSON fails to parse", func() {
             BeforeEach(func() {
                 json = `{
                     "title":"Les Miserables",
                     "author":"Victor Hugo",
-                    "pages":1488
+                    "pages":1488oops
                 }`
             })
-        
-            JustBeforeEach(func() {
-                book, err = NewBookFromJSON(json)
-            })
-        
-            Describe("loading from JSON", func() {
-                Context("when the JSON parses succesfully", func() {
-                    It("should populate the fields correctly", func() {
-                    })
-                })
-        
-                Context("when the JSON fails to parse", func() {
-                    BeforeEach(func() {
-                        json = `{
-                            "title":"Les Miserables",
-                            "author":"Victor Hugo",
-                            "pages":1488oops
-                        }`
-                    })
-        
-                    It("should return the zero-value for the book", func() {
-                    })
-                })
+
+            It("should return the zero-value for the book", func() {
             })
         })
+    })
+})
+```
 
 ### THEN
 
 - `It` or `Specify` for a single spec
 
-    var _ = Describe("Book", func() {
-        It("can be loaded from JSON", func() {
-            book := NewBookFromJSON(`{
-                "title":"Les Miserables",
-                "author":"Victor Hugo",
-                "pages":1488
-            }`)
-    
-    				// Check your expectations
-        })
-    })
+```go
+var _ = Describe("Book", func() {
+  It("can be loaded from JSON", func() {
+      book := NewBookFromJSON(`{
+          "title":"Les Miserables",
+          "author":"Victor Hugo",
+          "pages":1488
+      }`)
+
+      // Check your expectations
+  })
+})
+```
 
 This is the actual test code once all the setup and cleanup part has been defined in the context. 
 
 ## Focused & Pending Tests
 
 Adding the prefix `F` to any `It`, `Describe` or `Context` allows to run a particular set of tests you are interested at the moment
-
-    var _ = Describe("Book", func() {
-    		// Tests within this Describe will run
-        **FDescribe**("loading from JSON", func() {
-            Context("when the JSON parses succesfully", func() {
-                It("should populate the fields correctly", func() {
-                })
-    
-                It("should not error", func() {
-                })
+```go
+var _ = Describe("Book", func() {
+    // Tests within this Describe will run
+    **FDescribe**("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
             })
-    
-            Context("when the JSON fails to parse", func() {
-                It("should return the zero-value for the book", func() {
-                })
-    
-                It("should error", func() {
-                })
+
+            It("should not error", func() {
             })
         })
-    		// Rest of the tests are ignored
-        Describe("Extracting the author's last name", func() {
-            It("should correctly identify and return the last name", func() {
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
             })
         })
     })
+    // Rest of the tests are ignored
+    Describe("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
+
 
 **Side note**: you can remove any focused tests automatically by running: 
 
     $ ginkgo unfocus
 
 In the same way, you to mark one or multiple tests as `Pending` with the prefix `P` to ignore them:
-
-    var _ = Describe("Book", func() {
-        Describe("loading from JSON", func() {
-            Context("when the JSON parses succesfully", func() {
-                It("should populate the fields correctly", func() {
-                })
-    
-                It("should not error", func() {
-                })
+```go
+var _ = Describe("Book", func() {
+    Describe("loading from JSON", func() {
+        Context("when the JSON parses succesfully", func() {
+            It("should populate the fields correctly", func() {
             })
-    
-            Context("when the JSON fails to parse", func() {
-                It("should return the zero-value for the book", func() {
-                })
-    
-                It("should error", func() {
-                })
+
+            It("should not error", func() {
             })
         })
-    		// Ignore all the tests inside this Describe and run the rest
-        **PDescribe**("Extracting the author's last name", func() {
-            It("should correctly identify and return the last name", func() {
+
+        Context("when the JSON fails to parse", func() {
+            It("should return the zero-value for the book", func() {
+            })
+
+            It("should error", func() {
             })
         })
     })
+    // Ignore all the tests inside this Describe and run the rest
+    **PDescribe**("Extracting the author's last name", func() {
+        It("should correctly identify and return the last name", func() {
+        })
+    })
+})
+```
 
 ## How to convert standard tests to Ginkgo tests?
 
@@ -495,7 +510,7 @@ In the same way, you to mark one or multiple tests as `Pending` with the prefix 
 
 (Some things in life can be pretty increadible simple)
 
-# Gomega (⭐1k)
+# Gomega (⭐ 1k)
 
 Gomega is a **matcher**/**assertion** library. It is best paired with the Ginkgo BDD test framework, but can be adapted for use in other contexts too.
 
@@ -505,7 +520,7 @@ The focus of `Gomega` is on **readability** and **modularity**.
 
 ### Alternatives
 
-- Testify (⭐️9.5k)
+- Testify (⭐️ 9.5k)
 
 [stretchr/testify](https://github.com/stretchr/testify)
 
@@ -525,81 +540,100 @@ More here:
 ## Synchronous assertions
 
 Assertions start with `Expect` and follow the following syntax:
+```go
 
-    **Expect**(foo).**To**(Equal("foo"))
-    
-    // For the opposite
-    
-    **Expect**(foo).**ToNot**(Equal("bar"))
+Expect(foo).To(Equal("foo"))
+
+// For the opposite
+
+Expect(foo).ToNot(Equal("bar"))
+
+```
+
 
 ### Common assertions
 
 - Check errors
+```go
+err := DoSomething()
+Expect(err).ToNot(HaveOcurred())
 
-    err := DoSomething()
-    Expect(err).ToNot(HaveOcurred())
-    
-    // or alternatively
-    
-    Expect(DoSomething()).To(Succeed())
-    
-    // Or check a concrete error
-    
-    Expect(err).To(MatchError("expected error"))
-    
-    // Check if a concrete error contains some substring
-    err := errors.New("didn't work: because you weren't lucky")
-    
-    Expect(err).To(MatchError(ContainSubstring("didn't work")))
+// or alternatively
+
+Expect(DoSomething()).To(Succeed())
+
+// Or check a concrete error
+
+Expect(err).To(MatchError("expected error"))
+
+// Check if a concrete error contains some substring
+err := errors.New("didn't work: because you weren't lucky")
+
+Expect(err).To(MatchError(ContainSubstring("didn't work")))
+
+```
+
 
 Notice that we don't have to pass the value to the matchers. 
 
 - Checking maps
+```go
+Expect(m).To(HaveKey("foo"))
+Expect(m).To(HaveKeyWithValue("foo", "bar"))
 
-    Expect(m).To(HaveKey("foo"))
-    Expect(m).To(HaveKeyWithValue("foo", "bar"))
-    
-    
-    // Checking multiple things at once
-    Expect(m).To(
-    	SatisfyAll(
-    		HaveKey("foo"),
-    		HaveKey("bar"),
-    	),
-    )
+
+// Checking multiple things at once
+Expect(m).To(
+  SatisfyAll(
+    HaveKey("foo"),
+    HaveKey("bar"),
+  ),
+)
+```
+
 
 ## Asynchronous assertions
 
 ### `Eventually`
 
 Checks if the assertion eventually passes.
+```go
+Eventually(func() []int {
+    return thing.SliceImMonitoring
+}).Should(HaveLen(2))
 
-    Eventually(func() []int {
-        return thing.SliceImMonitoring
-    }).Should(HaveLen(2))
-    
-    Eventually(func() string {
-        return thing.Status
-    }).ShouldNot(Equal("Stuck Waiting"))
+Eventually(func() string {
+    return thing.Status
+}).ShouldNot(Equal("Stuck Waiting"))
+
+```
+
 
 ### `Consistently`
 
 checks that an assertion passes for a period of time
+```go
+Consistently(func() []int {
+    return thing.MemoryUsage()
+}).Should(BeNumerically("<", 10))
 
-    Consistently(func() []int {
-        return thing.MemoryUsage()
-    }).Should(BeNumerically("<", 10))
+```
+
 
 ## Timeout and Polling interval
 
 You can configure a polling internal and a timeout in both `Eventually` and `Consistently`
+```go
 
-    **DURATION** := time.Second()
-    **POLLING_INTERVAL** := 100 * time.Millisecond()
-    
-    Consistently(func() []int {
-        return thing.MemoryUsage()
-    }, **DURATION**, **POLLING_INTERVAL**).Should(BeNumerically("<", 10))
+DURATION := time.Second()
+POLLING_INTERVAL := 100 * time.Millisecond()
+
+Consistently(func() []int {
+    return thing.MemoryUsage()
+}, DURATION, POLLING_INTERVAL).Should(BeNumerically("<", 10))
+
+```
+
 
 ## Gexec
 
@@ -623,10 +657,7 @@ Testing streaming buffers
 
 # Additional Material
 
-[https://www.youtube.com/watch?v=R-j1phppdzI](https://www.youtube.com/watch?v=R-j1phppdzI)
-
-[https://www.youtube.com/watch?v=yBPgv-1htuU](https://www.youtube.com/watch?v=yBPgv-1htuU)
-
-[testingallthethings/013-ginkgo-gomega](https://github.com/testingallthethings/013-ginkgo-gomega)
-
-[Session 2 - TDD, Mocking & Dependency Injection](https://www.youtube.com/watch?v=uFXfTXSSt4I)
+* [https://www.youtube.com/watch?v=R-j1phppdzI](https://www.youtube.com/watch?v=R-j1phppdzI)
+* [https://www.youtube.com/watch?v=yBPgv-1htuU](https://www.youtube.com/watch?v=yBPgv-1htuU)
+* [testingallthethings/013-ginkgo-gomega](https://github.com/testingallthethings/013-ginkgo-gomega)
+* [Session 2 - TDD, Mocking & Dependency Injection](https://www.youtube.com/watch?v=uFXfTXSSt4I)
