@@ -1,17 +1,46 @@
 # Go Talk: Behavior Driven Development with Ginkgo and Gomega
 
-Checked: No
-Due date: Jan 28, 2020
-Project: https://www.notion.so/DH-Become-Principal-Software-Engineer-758f72c8bc98495697ea0e2a09a6d5dc
-Status: In Progress
+Notes also available in [Notion.so](https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d)
+
+## Table of contents
+
+* [Go Talk: Behavior Driven Development with Ginkgo and Gomega](#go-talk-behavior-driven-development-with-ginkgo-and-gomega)
+  * [Notes also available in <a href="https://www.notion.so/Go-Talk-Behaviour-Driven-Development-with-Ginkgo-and-Gomega-c3b16a17c6ad4a2f9182d621e8fec25d" rel="nofollow">Notion.so</a>](#notes-also-available-in-notionso)
+  * [About me](#about-me)
+* [Introduction](#introduction)
+  * [Test-Driven Development (TDD)](#test-driven-development-tdd)
+     * [Development flow](#development-flow)
+  * [Behavior-Driven Development (BDD)](#behavior-driven-development-bdd)
+* [Ginkgo (⭐3.6k)](#ginkgo-36k)
+     * [How?](#how)
+     * [Alternative BDD-frameworks](#alternative-bdd-frameworks)
+  * [Getting started](#getting-started)
+  * [Running Suite: Books Suite](#running-suite-books-suite)
+  * [Some useful commands](#some-useful-commands)
+  * [Anatomy of a test](#anatomy-of-a-test)
+     * [WHEN](#when)
+     * [GIVEN](#given)
+     * [THEN](#then)
+  * [Focused &amp; Pending Tests](#focused--pending-tests)
+  * [How to convert standard tests to Ginkgo tests?](#how-to-convert-standard-tests-to-ginkgo-tests)
+* [Gomega (⭐1k)](#gomega-1k)
+  * [Alternatives](#alternatives)
+  * [Matchers](#matchers)
+  * [Synchronous assertions](#synchronous-assertions)
+    * [Common assertions](#common-assertions)
+  * [Asynchronous assertions](#asynchronous-assertions)
+     * [Eventually](#eventually)
+     * [Consistently](#consistently)
+  * [Timeout and Polling interval](#timeout-and-polling-interval)
+  * [Gexec](#gexec)
+  * [Ghttp](#ghttp)
+  * [Gbytes](#gbytes)
+* [Q&amp;A](#qa)
+* [Additional Material](#additional-material)
 
 ---
 
 ## About me
-
-![Go%20Talk%20Behavior%20Driven%20Development%20with%20Ginkgo%20an/70925392_126225155430836_6531618081427423232_o.jpg](Go%20Talk%20Behavior%20Driven%20Development%20with%20Ginkgo%20an/70925392_126225155430836_6531618081427423232_o.jpg)
-
-![Go%20Talk%20Behavior%20Driven%20Development%20with%20Ginkgo%20an/Untitled.png](Go%20Talk%20Behavior%20Driven%20Development%20with%20Ginkgo%20an/Untitled.png)
 
 **Roberto Jiménez Sánchez**
 
@@ -20,8 +49,7 @@ Status: In Progress
 - Gopher since 2014
 - **Fun fact**: secretly a bartender 🍻
 
-[Roberto Jimenez](https://twitter.com/jszroberto)
-
+[Roberto Jimenez - Twitter](https://twitter.com/jszroberto)
 [Roberto Jimenez - Medium](https://medium.com/@totemteleko)
 
 ---
@@ -37,7 +65,7 @@ Status: In Progress
 1. 📝 write test
 2. 🔴 watch it fail 
 3. 👩‍💻 add new code
-4. 🟢 test are green 
+4. ✅ test are green 
 5. 🔁 Repeat
 
 ---
@@ -93,7 +121,7 @@ By improving the development flow.
 
     **← you are on your own 🤣**
 
-4. 🟢 test are green 
+4. ✅ test are green 
 
     ← run the test or tests you want quickly
 
